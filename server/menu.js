@@ -1,7 +1,8 @@
 'use strict';
 
-const {app, Menu} = require('electron');
+const {app, Menu, shell} = require('electron');
 const windowManager = require('./windowManager');
+const tools = require('./tools');
 
 const menuTemplate = [{
   label: 'File',
@@ -110,24 +111,31 @@ const menuTemplate = [{
     accelerator: 'CmdOrCtrl+W',
     role: 'close'
   }]
-}, {
+}, 
+tools.label,
+{
   label: 'Help',
   role: 'help',
   submenu: [{
     label: 'Report an Issue...',
     click() {
-      require('shell').openExternal('mailto:medis@zihua.li');
+      shell.openExternal('mailto:youjia@shimo.im');
     }
   }, {
-    label: 'Learn More',
+    label: 'Mac Version',
     click() {
-      require('shell').openExternal('http://getmedis.com');
+      shell.openExternal('http://getmedis.com');
+    }
+  }, {
+    label: 'Windows Version',
+    click() {
+      shell.openExternal('http://yiss.bid/medis/readme');
     }
   }]
 }]
 
 let baseIndex = 0;
-if (process.platform == 'darwin') {
+if (process.platform === 'darwin') {
   baseIndex = 1;
   menuTemplate.unshift({
     label: app.getName(),

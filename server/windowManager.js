@@ -15,6 +15,18 @@ class WindowManager extends EventEmitter {
     return BrowserWindow.getFocusedWindow() || this.create();
   }
 
+  get pickOne() {
+    if(BrowserWindow.getAllWindows().length > 0) {
+      if (BrowserWindow.getFocusedWindow()) {
+        return BrowserWindow.getFocusedWindow();
+      } else {
+        return BrowserWindow.getAllWindows()[0];
+      }
+    } else {
+      return null;
+    }
+  }
+
   create(type, arg) {
     if (!type) {
       type = 'main';
@@ -25,7 +37,7 @@ class WindowManager extends EventEmitter {
     if (type === 'main') {
       option.width = 960;
       option.height = 600;
-      option.show = false;
+      option.show = true;
       option.minWidth = 840;
       option.minHeight = 400;
     } else if (type === 'patternManager') {
@@ -39,12 +51,15 @@ class WindowManager extends EventEmitter {
     const newWindow = new BrowserWindow(option);
     if (!option.show) {
       newWindow.once('ready-to-show', () => {
-        newWindow.show()
+        newWindow.show();
       })
     }
     newWindow.loadURL(`file://${__dirname}/windows/${type}.html${arg ? '?arg=' + arg : ''}`);
 
     this._register(newWindow);
+
+    // for debug
+    //newWindow.webContents.openDevTools();
 
     return newWindow;
   }

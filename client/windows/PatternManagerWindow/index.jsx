@@ -63,7 +63,7 @@ class App extends React.Component {
           <input
             type="text" id="name"
             readOnly={!activePattern}
-            value={this.state.name || activePattern.get('name')}
+            value={this.state.name || activePattern ? activePattern.get('name') : ''}
             onChange={this.handleChange.bind(this, 'name')}
             />
         </div>
@@ -72,7 +72,7 @@ class App extends React.Component {
           <input
             type="text" id="value"
             readOnly={!activePattern}
-            value={this.state.value || activePattern.get('value')}
+            value={this.state.value || activePattern ? activePattern.get('value') : ''}
             onChange={this.handleChange.bind(this, 'value')}
             />
         </div>
@@ -81,8 +81,8 @@ class App extends React.Component {
             className="nt-button nt-button--primary"
             onClick={() => {
               this.props.updatePattern(connectionKey, this.state.index, {
-                name: this.state.name || activePattern.get('name'),
-                value: this.state.value || activePattern.get('value')
+                name: this.state.name || activePattern ? activePattern.get('name') : '',
+                value: this.state.value || activePattern ? activePattern.get('value') : ''
               })
               alert('Save Successfully')
             }}

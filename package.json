@@ -55,6 +55,9 @@
     "url": "git://github.com/luin/medis.git"
   },
   "dependencies": {
+    "bluebird": "^3.5.0",
+    "co": "^4.6.0",
+    "del": "^3.0.0",
     "fixed-data-table-contextmenu": "^1.6.5",
     "ioredis": "^2.4.2",
     "jquery": "^2.1.4",
